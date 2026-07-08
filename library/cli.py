@@ -17,12 +17,16 @@ def handle_add():
         for e in errors:
             print('-',e)
         return
-    
-    new_book['year']=int(new_book[year])
+    new_book['year']=int(new_book['year'])
     repository.add_book(new_book)
     print("New Book Added Successfully")
 
 def handle_list():
+    books=repository.get_all_books()
+    if not books:
+        print("No book to show")
+        return
+
     for book in repository.get_all_books():
         print(utils.format_book(book))
 
@@ -41,7 +45,7 @@ def handle_search():
     if user_input:
         results = services.search_books(user_input.strip().lower())
         if not results:
-            print("Book not found")
+            print("Book not found/Book Not exsists")
         else:
             for book in results:
                 print(utils.format_book(book))
@@ -62,7 +66,7 @@ def handle_update():
         x-=1
     if id_of_book:
         if not repository.find_book(int(id_of_book)):
-            print("Book not found.")
+            print("Book not found / Book not exsists.")
             return
         else:
             title=input('Enter title of book (changed) if not then write as it is: ')
@@ -82,7 +86,7 @@ def handle_update():
                 return
             else:
                 changes['year']=int(changes['year'])
-                if repository.update_book(id_of_book,changes):
+                if repository.update_book(int(id_of_book),changes):
                     print('Book Updated Successfully')
                 else:
                     print("Book Id not matches!!")
@@ -117,12 +121,12 @@ def handle_delete():
         x-=1
 
     if id_of_book:
-        book=repository.find_book(id_of_book)
+        book=repository.find_book(int(id_of_book))
         if not book:
             print("Book not found")
              
         else:
-            repository.delete_book(id_of_book)
+            repository.delete_book(int(id_of_book))
             print("Book Deleted Successfully")
     else:
         print('Please enter book id first')
@@ -136,11 +140,16 @@ def handle_sort():
             print(f"Will as {x} more times. Please enter info")
         if key.strip():
             break
+        i+=1
+        x-=1
 
     if key not in ["title","author"]:
         print("Invalid field.")
         return
     books = repository.get_all_books()
+    if not books:
+        print("No Books to Sort")
+        return
     books = services.sort_books(books, key)
 
     for b in books:
