@@ -5,16 +5,18 @@ def validate_book(book: dict) -> list[str]:
  error_lst=[]
  if not book['title'].strip():
   error_lst.append('Title is required')
- if not isinstance(book['year'],int) and len(book['year'])!=4:
+ if not book['year'].isdigit() and len(book['year'])!=4:
   error_lst.append("Year must be int and must be of 4 digits")
  if not book['author'].strip():
   error_lst.append('Author is required')
+  if not book['available']:
+   error_lst.append("Availability is required")
  return error_lst
 
    
 def search_books(query: str) -> list[dict]:
  """Case-insensitive match on title or author."""
- query=query.lower()
+ query=query.strip().lower()
  return [
     book for book in repository.get_all_books()
     if query in book["title"].lower() or query in book["author"].lower() 
