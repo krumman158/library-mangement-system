@@ -22,5 +22,5 @@ def search_books(query: str) -> list[dict]:
 
 def sort_books(books: list[dict], key: str = "title") -> list[dict]:
  """Return books sorted by the given field."""
- return [sorted(books,key=lambda b:b[key])]
+ return sorted(books,key=lambda b:b[key])
 

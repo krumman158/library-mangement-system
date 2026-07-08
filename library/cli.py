@@ -70,12 +70,23 @@ def handle_delete():
     repository.delete_book(id_of_book)
     print("Book Deleted Successfully")
 
+def handle_sort():
+    key = input("Sort by (title/author)").strip().lower()
+    if key not in ["title","author"]:
+        print("Invalid field.")
+        return
+    books = repository.get_all_books()
+    books = services.sort_books(books, key)
+
+    for b in books:
+        print(utils.format_book(b))
+
 
 
 
 def run():
     while True:
-        print("\n1. Add book\n2. List all books\n3. Search Books\n4. Update Books\n5. Borrow/Return Books\n6. Delete Books\n0. Exit")
+        print("\n1. Add book\n2. List all books\n3. Search Books\n4. Update Books\n5. Borrow/Return Books\n6. Delete Books\n7. Sort Books\n0. Exit")
         choice = input("Enter your choice: ")
         if choice == "0":
             break
@@ -92,5 +103,7 @@ def run():
                 handle_borrow()
             case '6':
                 handle_delete()
+            case '7':
+                handle_sort()
             case _:
                 print("Invalid Choice!!!")
