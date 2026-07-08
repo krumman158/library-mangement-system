@@ -71,7 +71,7 @@ def handle_delete():
     print("Book Deleted Successfully")
 
 def handle_sort():
-    key = input("Sort by (title/author)").strip().lower()
+    key = input("Enter (title/author): ").strip().lower()
     if key not in ["title","author"]:
         print("Invalid field.")
         return

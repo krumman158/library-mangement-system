@@ -17,4 +17,4 @@ def prompt_int(message: str) -> int:
 
 def format_book(book: dict) -> str:
  """Return a single, aligned display row for a book."""
- return f"{book['id']:<4} {book['title']:<20} {book['author']:<20} {book['year']:<4}"
+ return f"ID: {book['id']:<4} Title: {book['title']:<20} Author: {book['author']:<20} Year: {book['year']:<4}   Availability: {book['available']}"
