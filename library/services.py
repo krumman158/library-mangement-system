@@ -6,9 +6,10 @@ def validate_book(book: dict) -> list[str]:
  if not book['title'].strip():
   error_lst.append('Title is required')
  if not isinstance(book['year'],int) and len(book['year'])!=4:
-  print("Year must be int and must be of 4 digits")
+  error_lst.append("Year must be int and must be of 4 digits")
  if not book['author'].strip():
-  print('Author is required')
+  error_lst.append('Author is required')
+ return error_lst
 
    
 def search_books(query: str) -> list[dict]:
