@@ -45,8 +45,11 @@ def handle_update():
         'year':year,
         'availabile':available
     }
-    repository.update_book(id_of_book,changes)
-    print('Book Updated Successfully')
+    if repository.update_book(id_of_book,changes):
+        print('Book Updated Successfully')
+    else:
+        print("Book Id not matches!!")
+
 
 def handle_borrow():
     book_id = utils.prompt_int("Enter book id: ")
@@ -67,8 +70,10 @@ def handle_delete():
     if not book:
         print("Book not found")
         return 
-    repository.delete_book(id_of_book)
-    print("Book Deleted Successfully")
+    if repository.delete_book(id_of_book):
+        print("Book Deleted Successfully")
+    else:
+        print('Book Not Deleted (May not exsist)')
 
 def handle_sort():
     key = input("Enter (title/author): ").strip().lower()
